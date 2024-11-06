@@ -1,0 +1,190 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Grocery Delivery App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2024-present initappz.
+-->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div id="sign-in-button"></div>
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="5">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm *ngIf="util.user_login_with == 0">
+                <h1>{{util.translate('Login')}}</h1>
+                <p class="text-medium-emphasis">{{util.translate('Sign In to your account')}}</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input cFormControl [placeholder]="util.translate('Email')" type="email" [(ngModel)]="email"
+                    [class]="submited== true && email =='' ?'validator_error':''"
+                    [ngModelOptions]="{standalone: true}" />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input cFormControl [placeholder]="util.translate('Password')" type="password" [(ngModel)]="password"
+                    [class]="submited== true && password =='' ?'validator_error':''"
+                    [ngModelOptions]="{standalone: true}" />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="onLogin()">
+                      {{util.translate('Login')}}
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link" (click)="forgot()">
+                      <span style="color: blue;">{{util.translate('Forgot password?')}}</span>
+                    </button>
+                  </c-col>
+                </c-row>
+
+                <c-row>
+                  <c-col xs="6"></c-col>
+                  <c-col xs="6">
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="languageId"
+                      (change)="updateLanguage()">
+                      <option [value]="item.code" *ngFor="let item of util.allLanguages"> {{item.name}} </option>
+                    </select>
+                  </c-col>
+                </c-row>
+
+              </form>
+
+              <form cForm *ngIf="util.user_login_with == 1">
+                <h1>{{util.translate('Login')}}</h1>
+                <p class="text-medium-emphasis">{{util.translate('Sign In to your account')}}</p>
+                <div class="row">
+                  <div class="col-md-3" *ngIf="util.countrys?.length">
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="country_code">
+                      <option *ngFor="let item of util.countrys" [value]="item.dialling_code">
+                        {{item.country_name}} </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" *ngIf="!util.countrys?.length">
+                    <c-input-group class="mb-3">
+                      <input cFormControl placeholder="+1" [(ngModel)]="country_code"
+                        [class]="submited== true && country_code =='' ?'validator_error':''"
+                        [ngModelOptions]="{standalone: true}" />
+                    </c-input-group>
+                  </div>
+                  <div class="col-md-9">
+                    <c-input-group class="mb-3">
+                      <input cFormControl [placeholder]="util.translate('Phone Number')" [(ngModel)]="phone"
+                        [class]="submited== true && phone =='' ?'validator_error':''"
+                        [ngModelOptions]="{standalone: true}" />
+                    </c-input-group>
+                  </div>
+                </div>
+
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input cFormControl [placeholder]="util.translate('Password')" type="password" [(ngModel)]="password"
+                    [class]="submited== true && password =='' ?'validator_error':''"
+                    [ngModelOptions]="{standalone: true}" />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="loginWithPhonePassword()">
+                      {{util.translate('Login')}}
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link" (click)="forgot()">
+                      <span style="color: blue;">{{util.translate('Forgot password?')}}</span>
+                    </button>
+                  </c-col>
+                </c-row>
+
+                <c-row>
+                  <c-col xs="6"></c-col>
+                  <c-col xs="6">
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="languageId"
+                      (change)="updateLanguage()">
+                      <option [value]="item.code" *ngFor="let item of util.allLanguages"> {{item.name}} </option>
+                    </select>
+                  </c-col>
+                </c-row>
+
+              </form>
+
+              <form cForm *ngIf="util.user_login_with == 2">
+                <h1>{{util.translate('Login')}}</h1>
+                <p class="text-medium-emphasis">{{util.translate('Sign In to your account')}}</p>
+                <div class="row">
+                  <div class="col-md-3" *ngIf="util.countrys?.length">
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="country_code">
+                      <option *ngFor="let item of util.countrys" [value]="item.dialling_code">
+                        {{item.country_name}} </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" *ngIf="!util.countrys?.length">
+                    <c-input-group class="mb-3">
+                      <input cFormControl placeholder="+1" [(ngModel)]="country_code"
+                        [class]="submited== true && country_code =='' ?'validator_error':''"
+                        [ngModelOptions]="{standalone: true}" />
+                    </c-input-group>
+                  </div>
+                  <div class="col-md-9">
+                    <c-input-group class="mb-3">
+                      <input cFormControl [placeholder]="util.translate('Phone Number')" [(ngModel)]="phone"
+                        [class]="submited== true && phone =='' ?'validator_error':''"
+                        [ngModelOptions]="{standalone: true}" />
+                    </c-input-group>
+                  </div>
+                </div>
+
+                <c-input-group class="mb-4" *ngIf="otpSent == true">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input cFormControl [placeholder]="util.translate('Enter OTP')" type="number" [(ngModel)]="otp"
+                    [class]="submited== true && otp =='' ?'validator_error':''" [ngModelOptions]="{standalone: true}" />
+                </c-input-group>
+
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="loginWithPhoneOTP()" *ngIf="otpSent == false">
+                      {{util.translate('Send OTP')}}
+                    </button>
+                    <button cButton class="px-4" color="primary" (click)="verifyOTP()" *ngIf="otpSent == true">
+                      {{util.translate('Verify OTP')}}
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link" (click)="forgot()">
+                      <span style="color: blue;">{{util.translate('Forgot password?')}}</span>
+                    </button>
+                  </c-col>
+                </c-row>
+
+                <c-row>
+                  <c-col xs="6"></c-col>
+                  <c-col xs="6">
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="languageId"
+                      (change)="updateLanguage()">
+                      <option [value]="item.code" *ngFor="let item of util.allLanguages"> {{item.name}} </option>
+                    </select>
+                  </c-col>
+                </c-row>
+
+              </form>
+
+            </c-card-body>
+          </c-card>
+
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
